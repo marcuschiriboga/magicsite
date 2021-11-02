@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>/* Style the Image Used to Trigger the Modal */
+
+  
+  /* The Modal (background) */
+ 
+  
+  /* Modal Content (Image) */
+
+  
+
+  .container-deck {
+  position: relative;
+  text-align: center;
+  color: white;
+  width: 100px;
+}
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color:red;
+  font-size: 40px;
+
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-popup {
+  display: none;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+</style>
+
+<h6>edit page for {{deck}}
+</h6>
+<div class="container">
+  <!-- form section -->
+  <div class="browser-default">
+    <form method="post" action=""  enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <a>
+        <button class="btn-floating halfway-fab waves-effect waves-light red" type="submit">
+          <i class="material-icons">add</i>
+        </button>
+      </a>
+    </form>
+    </div>
+    
+<!-- tag section  -->
+  <div style="border: 1px solid black;"> 
+  {%for tag in deck.deck_tags.all%}
+  <a href='/tag/{{tag}}/'>{{tag}} </a>
+  <a href='/deletetag/{{tag}}/{{deck.id}}'><button>X</button></a>
+  {%endfor%}
+  <button onclick="addTag()">add tag</button>
+  <div class="form-popup" id="myForm">
+    <form method="post" action="/addtags/{{deck.id}}/" enctype="multipart/form-data" class="form-container">
+
+      <h3>add tag</h3>
+      {% csrf_token %}
+      <label for="tag"><b>tag</b></label>
+      <input id="formline" type="tag" placeholder="Enter tag" name="tag" required>
+      <button type="submit" class="btn">Submit Tag</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
+</div>
+<!-- deck section -->
+{% for item, value in deck.actual_decklist.items %}
+<div class="container">
+{{item}}:
+<div style='display: flex; flex-wrap: wrap;  width: 60%'>
+{% for number, card in value.values %}
+  {%for card_obj in deck.card_obj_in_deck.all %}
+    {%if card == card_obj.name%}
+      <div class='container-deck'>
+      <a class="cardlist {{card_obj.oracle_id}}" href="/card/{{card}}" >
+        <img src='{{card_obj.image_url_small}}' alt='{{card_obj.name}}' />
+        <div  class="top-left" > {{number}}</div>
+      </a>
+      </div>
+    {%endif%}
+  {%endfor%}
+{%endfor%}
+</div>
+</div>
+{%endfor%}
+</div>
+
+
+
+{%endblock%}

@@ -1,0 +1,29 @@
+4 Allosaurus Shepherd (JMP) 28
+18 Forest (ANB) 112
+4 Llanowar Elves (DAR) 168
+4 Elvish Clancaller (M19) 179
+4 Dwynen's Elite (JMP) 389
+4 Collected Company (AKR) 186
+2 Imperious Perfect (LRW) 220
+1 Fierce Empath (M21) 181
+4 Elvish Archdruid (JMP) 391
+1 Craterhoof Behemoth (JMP) 385
+4 Castle Garenbrig (ELD) 240
+4 Elvish Warmaster (KHM) 167
+2 Marwyn, the Nurturer (DAR) 172
+4 Jaspera Sentinel (KHM) 178
+
+{ "Creatures":{"Jaspera Sentinel":4,
+  "Marwyn, the Nurturer":2,
+  "Elvish Warmaster": 4,
+  "Craterhoof Behemoth": 1,
+  "Elvish Archdruid": 4,
+  "Fierce Empath": 1,
+  "Imperious Perfect": 2,
+  "Collected Company": 4,
+  "Dwynen's Elite": 4,
+  "Elvish Clancaller": 4,
+  "Llanowar Elves": 4,
+  "Allosaurus Shepherd": 4},
+  "Lands": {"Forest":18, "Castle Garenbrig": 4}
+}

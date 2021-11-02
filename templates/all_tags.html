@@ -1,0 +1,17 @@
+{%extends "base.html" %}
+{%block content %}
+<div>
+  <form><address action="{% url 'all_tags' %}" method="get">
+    <input name="filter_q" type="text" placeholder="filter">
+  </form>
+  <ul>
+  {%for tag in tags%}
+    <li>
+      <a href=/tag/{{tag}}>{{tag}} </a> {{tag.tags.all|length}} decks tagged
+    </li>
+  {%empty%}
+    There are no matching tags
+  {%endfor%}
+  </ul>
+</div>
+{%endblock%}

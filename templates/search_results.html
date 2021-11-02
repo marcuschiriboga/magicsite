@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div>
+  <form action="{% url 'search_results' %}" method="get" class="browser-default">
+    <label for="q">search:</label>
+    <input name="q" type="text" value='{{query}}'/> 
+    <label for="o">options</label>
+    <select class="browser-default" name="o" multiple  style="height:72px">
+      <option for="o" value="cards" selected>Cards</option>
+      <option for="o" value="decks" selected>Decks</option>
+      <option for="o" value="tags" selected>Tags</option>
+   </select><br>
+    <input type="submit" value="Submit now" />      
+  </form>
+</div>
+
+<br>
+<ul>
+  {% for obj in object_list %}
+    {% if obj.title%} 
+    <div style='border: 1px solid black;'>
+    <h6>deck</h6>
+    
+    <a href='/decks/{{obj.id}}'>{{obj.title}}</a>
+    
+    <p>{{deck.deck_list}}</p>
+    {{obj.decklist}}
+    by: {{obj.user}}
+  </div>
+    {%elif obj.name%}
+  <div style='border: 1px solid black;'>
+    <h6>card</h6>
+
+    <li>
+      <a href='/card/{{obj.name}}'>{{ obj.name }} </a>  {{ obj.mana_cost }}
+      <img src='{{obj.image_url_small}}' /> 
+    </li>
+    <li>{{obj.oracle_text}}</li>
+  </div>
+  {%elif obj.tag%}
+  <div style='border: 1px solid black;'>
+    <h6>tag</h6>
+    <li>
+      <a href='/tag/{{obj.tag}}'>{{ obj.tag }} </a>
+    </li>
+  </div>
+  {% endif %} 
+  {%empty%}
+  <a href="/card/Fblthp,%20the%20Lost/">are you lost<a>
+  {% endfor %}
+</ul>
+
+{%endblock%}

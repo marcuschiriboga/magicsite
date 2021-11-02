@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="homecontainer">
+<h6>Welcome: {{ user.username }}</h6>
+
+
+<!-- Filterform -->
+<div>
+  sort by 
+  <form action="{% url 'index' %}" method="get" class="browser-default">
+      <!-- colors -->
+    <div>
+      <label class="filled-in" value="red">
+        <input type="checkbox"  name="colors" value="red" />
+        <span>Red</span>
+      </label>
+      <label class="filled-in">
+        <input type="checkbox"  name="colors" value="blue"/>
+        <span>Blue</span>
+      </label>
+      <label class="filled-in">
+        <input type="checkbox"  name="colors" value="white"/>
+        <span>White</span>
+      </label>
+      <label class="filled-in">
+        <input type="checkbox"  name="colors" value="green"/>
+        <span>Green</span>
+      </label>
+      <label class="filled-in">
+        <input type="checkbox"  name="colors" value="black"/>
+        <span>Black</span>
+      </label>
+    </div>
+    <!-- tags -->
+    <form action="{% url 'index' %}" method="get" class="browser-default">
+      <!-- colors -->
+    <div>
+      {%for tag in tags %}
+      <label class="filled-in">
+        <input type="checkbox"  name="tags" value="{{tag}}" />
+        <span>{{tag}}</span>
+      </label>
+      {%endfor%}
+    </div>
+    <INPUT type="radio" name="sex" value="Male"> Male<BR>
+      <INPUT type="radio" name="sex" value="Female"> Female<BR>
+   <!-- format -->
+    <label for="format">filter format</label>
+    <select for="format" class="browser-default" name="format">
+      <option value="all" selected>all</option>
+      <option value="standard" >standard</option>
+      <option value="historic" >historic</option>
+   </select><br>
+    <input type="submit" value="Submit now" />      
+  </form>
+</div>
+
+  {% for deck in decks %}
+
+  <li style="border: 1px solid black;"><strong><a href ="/decks/{{deck.id}}/">{{deck.title}}</a></strong>
+     <br> - Written by {{ deck.user.username }}
+  <ul>
+    <li>
+      ------- {%for card in deck.card_highlights.all%}
+      <img src='{{card.image_url_small}}'> {{card.name}}
+      {%endfor%}
+    </li>
+  </ul>
+</li>
+  {% endfor %}
+</ul>
+</main>
+{% endblock %}

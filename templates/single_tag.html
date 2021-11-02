@@ -1,0 +1,19 @@
+{%extends "base.html" %}
+{%block content %}
+
+
+<div>
+  decks tagged with {{tag}}
+  <ul>
+  {% for deck in tag.tags.all %}
+    <li style="border:1px solid black;">
+      <h5><a href='/decks/{{deck.id}}'>{{deck.title}}</a> by <a href=/users/{{deck.user.id}}>{{deck.user.username}}</a></h5> 
+      <p>{{deck.description}}</p>
+      {%for tag in deck.deck_tags.all%}
+        <a href=/tag/{{tag}}>{{tag}}</a>
+    {%endfor%}
+    </li>
+  {%endfor%}
+  </ul>
+</div>
+{%endblock%}

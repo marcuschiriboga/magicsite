@@ -1,0 +1,80 @@
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+          .x2 {
+            margin: 20px;
+            height: 100px;
+            width: 150px;
+          }
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-content: space-between;
+          }
+          #searchbar{
+            display:flex;
+            align-items:center;
+    
+          }
+          #homecontainer{
+            display:flex;
+            flex-direction:row;
+          }
+        </style>
+     
+    
+        <!--Import Google Icon Font-->
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
+        <!-- Compiled and minified CSS -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+
+      <nav class="nav-extended">
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo center ">Historic Metagame</a>
+        <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+      </div>
+        <div class="nav-content">
+          <ul class="tabs tabs-transparent">
+            
+            {% if not user.is_authenticated %}
+            <li class="tab"><a href="/login/">Login</a></li>
+            <li class="tab"><a href="/signup/">Signup</a></li>
+            {% else %}
+            <li class="tab"><a href="/logout/">Logout</a></li>
+            <li class="btn"><a href="/upload">Upload</a></li>
+            <li class="tab"><a href="/users/{{user.id}}/">Profile</a></li>
+            {% endif%}
+            <li class="tab"><a href="/statictodo/">todo's</a></li>
+            <li class="tab"><a href="/">Home</a></li>
+            <li class="tab"><a href="/alltags">Tags</a></li>
+            {%if user.is_staff%}
+            <li class="tab"><a href="/admin/">Admin </a></li>
+            {%endif%}
+            <li><form action="{% url 'search_results' %}" method="get">
+              <input name="q" type="text" placeholder="Search...">
+            </form></li>
+          </ul>
+      </div>
+    </nav>
+<body>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>

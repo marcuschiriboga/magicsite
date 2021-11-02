@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>/* Style the Image Used to Trigger the Modal */
+
+  
+  /* The Modal (background) */
+ 
+  
+  /* Modal Content (Image) */
+
+  
+
+  .container-deck {
+  position: relative;
+  text-align: center;
+  color: white;
+  width: 100px;
+}
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color:red;
+  font-size: 40px;
+
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-popup {
+  display: none;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+  
+  /* The Close Button */
+</style>
+
+<main class='homecontainer'>
+
+<div class= left>
+  <h1>{{deck.title}}</h1>
+  <h6>a {{deck.format}} deck</h6>
+
+    built by: <a href="/users/{{ deck.user.id }}">{{deck.user.username}}</a>
+ 
+      <h4>{{deck.user.email}}</h4>
+ 
+  <br>
+
+
+  <div class="left" style="border: 1px solid black;"> 
+  <h3 >tags are here </h3>
+    {%for tag in deck.deck_tags.all%}
+    <a href='/tag/{{tag}}/'>{{tag}} </a>
+    {%endfor%}
+    <button onclick="addTag()">add tag</button>
+    <div class="form-popup" id="myForm">
+      <form method="post" action="/addtags/{{deck.id}}/" enctype="multipart/form-data" class="form-container">
+
+        <h3>add tag</h3>
+        {% csrf_token %}
+        <label for="tag"><b>tag</b></label>
+        <input id="formline" type="tag" placeholder="Enter tag" name="tag" required>
+        <button type="submit" class="btn">Submit Tag</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div>
+  <article>
+    <p>{{deck.description}}</p>
+    </div>
+
+
+  <div id="deck_page_buttons"> 
+    <button onclick="hideDeck()">Show List</button>
+    <button onclick="copyDeck()">Copy deck for arena</button>
+    <a href="/decks/edit/{{deck.id}}">
+      <button>Edit</button>
+    </a>
+    <div id='full-decklist' style="display: none;">
+      <pre id="decklistarenaformat">{{deck.arena_export_list}}</pre>
+    </div>
+  </div>
+</article>
+
+</div>
+<div>
+  <!-- {%for card in deck.card_obj_in_deck.all%}
+  <img class="hovercard" src='{{card.image_url_small}}' alt='{{card.name}}' />
+  {%endfor%} -->
+  
+  {%for card in deck.card_obj_in_deck.all %}
+  <img class="hovercard" style="display: none;" style="display: none;" id='{{card.oracle_id}}' src='{{card.image_url_normal}}' alt='{{card.name}}' />
+  {%endfor%}
+
+  <div style='float:right'>
+    <div>
+      <p id="hoverviewer-title">Card Title</p>
+    </div>
+    <img id="hoverviewer" src="">
+  </div>
+  <br>
+  {% for item, value in deck.actual_decklist.items %}
+    {{item}}:
+    <div style='display: flex; flex-wrap: wrap;  width: 60%'>
+    {% for number, card in value.values %}
+      {%for card_obj in deck.card_obj_in_deck.all %}
+        {%if card == card_obj.name%}
+          <div class='container-deck'>
+          <a class="cardlist {{card_obj.oracle_id}}" href="/card/{{card}}" >
+            <img src='{{card_obj.image_url_small}}' alt='{{card_obj.name}}' />
+            <div  class="top-left" > {{number}}</div>
+          </a>
+          </div>
+        {%endif%}
+      {%endfor%}
+    {%endfor%}
+    </div>
+  {%endfor%}
+</div>
+
+
+
+</main>
+
+
+<script>
+  
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  var img = document.getElementById("myImg");
+  var hoverviewer = document.getElementById("hoverviewer");
+  var cardlist = document.getElementsByClassName("cardlist");
+  var hoverviewerTitle = document.getElementById("hoverviewer-title");
+  var hovercard = document.getElementsByClassName("hovercard")
+
+  for (i = 0; i < hovercard.length; i++) {
+    console.log(hovercard[i]);
+    hovercard[i].onmouseover = function () {
+    console.log(this.src)
+    hoverviewer.src = this.src;
+    hoverviewerTitle.innerHTML = this.alt;
+  };
+}
+
+
+for (i = 0; i < cardlist.length; i++) {
+    console.log(cardlist);
+    cardlist[i].onmouseover = function () {
+    console.log(this.classList[1])
+    hoverviewer.src = document.getElementById(this.classList[1]).src;
+    hoverviewerTitle.innerHTML = document.getElementById(this.classList[1]).alt;
+  };
+}
+
+// decklist hide and view logic 
+  function hideDeck() {
+  var x = document.getElementById("full-decklist");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+// export for arena. One click. 
+function copyDeck()  {
+  let id = 'decklistarenaformat'
+  var r = document.createRange();
+  r.selectNode(document.getElementById(id));
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(r);
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();
+  alert("copied")
+}
+
+function addTag(){
+  document.getElementById("myForm").style.display = "block";
+  document.getElementById("formline").focus()
+}
+function closeForm(){
+  document.getElementById("myForm").style.display = "none";
+}
+  </script>
+{% endblock %}
+

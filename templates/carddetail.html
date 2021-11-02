@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{%block content%}
+<div>
+{%for c in card %}
+{{c}}
+{{c.name}}
+{{c.oracle_text}}
+{{c.set}}
+{{c.set_name}}
+</div>
+<img src='{{c.image_url_normal}}' /> 
+{% endfor %}
+{%endblock%}
+
