@@ -15,8 +15,6 @@ import os
 import sys
 import dj_database_url
 from django.core.management.utils import get_random_secret_key
-
-from secrets import secrets
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+SECRET_KEY = "@u-!ebyj9b72o90@sl(ecxgdyahceasqwi-56vx!%r8%qc!dee"
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "False"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
