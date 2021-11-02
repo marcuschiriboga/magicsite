@@ -1,1 +1,2 @@
 readme (hold)
+mkdir ~/.venvs
