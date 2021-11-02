@@ -17,7 +17,7 @@ class Command(BaseCommand):
         cards = Card.objects.all()
         cards.delete()
 
-        with open("default-cards-20211014090232.json", "r+") as j:
+        with open("oracle-cards-20211007090329.json", "r+") as j:
             card_data = json.load(j)
 
             # breakpoint()
