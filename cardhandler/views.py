@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from cardhandler.models import Card
 import json
 
@@ -72,3 +72,4 @@ def bootstrap_cards(request):
                     alt_image_url_art_crop=alt_art_crop_url,
                     legalities=card_dict.get('legalities')
                 )
+                return HttpResponseRedirect("/")
