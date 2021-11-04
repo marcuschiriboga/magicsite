@@ -24,5 +24,4 @@ urlpatterns = [
     path('logout/', LogoutView.as_view()),
     path('search/', search_view.as_view(), name='search_results'),
     path('statictodo/', static_view)
-
 ]

@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.fields import UUIDField
 
+
 # A model for my website for magic cards
 # TODO: add color for advanced filtering.
 
