@@ -52,24 +52,24 @@ def bootstrap_cards(request):
                         alt_small_url = alt_images.get("small")
                         alt_normal_url = alt_images.get("normal")
                         alt_art_crop_url = alt_images.get("art_crop")
-                print(card_dict["set"], card_dict['collector_number'])
-                Card.objects.create(
-                    name=card_dict.get("name"),
-                    mana_cost=card_dict.get("mana_cost"),
-                    type_line=card_dict.get("type_line"),
-                    layout=card_dict.get('layout'),
-                    set=card_dict.get("set"),
-                    collector_number=card_dict.get('collector_number'),
-                    set_name=card_dict.get("set_name"),
-                    oracle_id=card_dict.get("oracle_id"),
-                    arena_id=card_dict.get("arena_id"),
-                    oracle_text=card_dict.get("oracle_text"),
-                    image_url_small=small_url,
-                    image_url_normal=normal_url,
-                    image_url_art_crop=art_crop_url,
-                    alt_image_url_small=alt_small_url,
-                    alt_image_url_normal=alt_normal_url,
-                    alt_image_url_art_crop=alt_art_crop_url,
-                    legalities=card_dict.get('legalities')
-                )
-                return HttpResponseRedirect("/")
+            print(card_dict["set"], card_dict['collector_number'])
+            Card.objects.create(
+                name=card_dict.get("name"),
+                mana_cost=card_dict.get("mana_cost"),
+                type_line=card_dict.get("type_line"),
+                layout=card_dict.get('layout'),
+                set=card_dict.get("set"),
+                collector_number=card_dict.get('collector_number'),
+                set_name=card_dict.get("set_name"),
+                oracle_id=card_dict.get("oracle_id"),
+                arena_id=card_dict.get("arena_id"),
+                oracle_text=card_dict.get("oracle_text"),
+                image_url_small=small_url,
+                image_url_normal=normal_url,
+                image_url_art_crop=art_crop_url,
+                alt_image_url_small=alt_small_url,
+                alt_image_url_normal=alt_normal_url,
+                alt_image_url_art_crop=alt_art_crop_url,
+                legalities=card_dict.get('legalities')
+            )
+            return HttpResponseRedirect("/")
