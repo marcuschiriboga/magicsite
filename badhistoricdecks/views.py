@@ -137,7 +137,7 @@ class DeckFormView(View):
                 # breakpoint()
                 deck_dict.update(
                     {card.strip(): [int(quantity), Card.objects.filter(
-                        name__icontains=card.strip()).first().name]})
+                        name__icontains=card.strip()).first()]})
                 # handle sideboard
             for card in sideboard:
                 if not card:
