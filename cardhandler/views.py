@@ -79,7 +79,9 @@ def cardform_view(request):
     if request.method == "POST":
         data = SingleCardJSONForm(request.POST)
         if data.is_valid():
-            card_dict = data.cleaned_data
+            data = data.cleaned_data
+            card_dict = data["card_data"]
+            print(card_dict)
             images = card_dict.get("image_uris")
             small_url = ""
             normal_url = ""
